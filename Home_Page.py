@@ -7,7 +7,7 @@ st.image("coverphoto.jpg")
 # Assignment Data 
 # TODO: Fill out your team number, section, and team members
 
-st.header("Daniel Wu")
+st.header("Arshan Kadri and Daniel Wu")
 
 # Introduction
 # TODO: Write a quick description for all of your pages in this lab below, in the form:
@@ -17,12 +17,13 @@ st.header("Daniel Wu")
 #       4. **Page Name**: Description
 
 st.write("""
-Welcome to my Streamlit Web Development app! You can navigate between the pages using the sidebar to the left. The following pages are:
+Welcome to our Streamlit Web Development app! You can navigate between the pages using the sidebar to the left. The following pages are:
 
 1. Home Page: As Seen\n
-2. Daniel's Page: Information on Daniel\n
-3. Weather Index: Give a longitude, latitude, and pick a weather criteria. The result will be the current state of that criteria at that location.\n
-4. Weather Comparison: Give 2 longitudes and latitudes for two different locations. Google Gemini will compare the two and say which one is the better option based on the weather.\n
+2. Arshan's Page: Information on Arshan\n
+3. Daniel's Page: Information on Daniel\n
+4. Weather Index: Give a longitude, latitude, and pick a weather criteria. The result will be the current state of that criteria at that location.\n
+5. Weather Comparison: Give 2 longitudes and latitudes for two different locations. Google Gemini will compare the two and say which one is the better option based on the weather.\n
 
 """)
 
