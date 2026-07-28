@@ -31,8 +31,8 @@ course_data = {
     "skills":["Python is my favorite language", "How the brain works", "Basically rows and columns", "The Earth needs healing"],
     }
 experience_data = {
-    "Student": (["- Worked on projects and studied",
-                                                                          "- Get Chick-fil-a", "- Worked with a team of wonderful people"],"Images/Chick.jpg"),
+    "Cashier at Chick-fil-A": (["- Worked at the front register by taking orders for what people wanted",
+                                                                          "- Interacted with customers on a daily basis in order to create a happy experience", "- Worked with a team of wonderful people"],"Images/Chick.jpg"),
     "Robotics team":(["- Designed and created a robotics that qualified for the vex worlds robotics tournament",
                                                            "- Worked on a team of 10 people for 2 years (lead the team 1 year)"],"Images/vex.jpg"),
     "Volunteer":(["- Collected trash in the park as part of a cleanup crew volunteer program"],"Images/park.jpeg")
