@@ -22,7 +22,7 @@ education_data ={
     'Institution': 'Georgia Institute of Technology',
     'Location': 'Atlanta, GA',
     'Graduation Date': 'May 2027',
-    'GPA': '4.0'
+    'GPA': 'Hopefully 4.0'
 }
 course_data = {
     "code":["CS 1301", "PSYC 1101", "MATH 1553", "EAS 1600"], 
@@ -31,8 +31,8 @@ course_data = {
     "skills":["Python is my favorite language", "How the brain works", "Basically rows and columns", "The Earth needs healing"],
     }
 experience_data = {
-    "Cashier at Chick-fil-A": (["- Worked at the front register by taking orders for what people wanted",
-                                                                          "- Interacted with customers on a daily basis in order to create a happy experience", "- Worked with a team of wonderful people"],"Images/Chick.jpg"),
+    "Student": (["- Worked on projects with many students",
+                                                                          "- Study hard everyday", "- Worked with a team of wonderful people"]),
     "Robotics team":(["- Designed and created a robotics that qualified for the vex worlds robotics tournament",
                                                            "- Worked on a team of 10 people for 2 years (lead the team 1 year)"],"Images/vex.jpg"),
     "Volunteer":(["- Collected trash in the park as part of a cleanup crew volunteer program"],"Images/park.jpeg")
