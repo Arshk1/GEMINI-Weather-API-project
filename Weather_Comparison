@@ -1,0 +1,89 @@
+mport google.generativeai as genai
+import requests
+import streamlit as st
+
+if 'GEMINI_MODEL' in os.environ:
+    del os.environ['GEMINI_MODEL']
+    print("Successfully cleared GEMINI_MODEL environment variable in script.")
+
+api_key = "a0d010e8a3f85d10cb96017c547a0d6d"
+
+gemini_api_key = "AIzaSyDz6ePNTpivep6Vf4Bq2seEV89pWg_LO-E"  
+
+genai.configure(api_key=gemini_api_key)
+
+def validate_input(input_value):
+    try:
+        return float(input_value)
+    except ValueError:
+        return None
+
+lat1_input = st.text_input("Enter the latitude for place 1:")
+lon1_input = st.text_input("Enter the longitude for place 1:")
+lat2_input = st.text_input("Enter the latitude for place 2:")
+lon2_input = st.text_input("Enter the longitude for place 2:")
+
+lat1 = validate_input(lat1_input)
+lon1 = validate_input(lon1_input)
+lat2 = validate_input(lat2_input)
+lon2 = validate_input(lon2_input)
+
+def fetch_weather_data(lat, lon):
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}"
+    response = requests.get(url)
+    return response.json()
+
+def get_gemini_response(weather_data_1, weather_data_2):
+    try:
+        temp1 = weather_data_1["main"]["temp"] - 273.15  
+        temp2 = weather_data_2["main"]["temp"] - 273.15
+        humidity1 = weather_data_1["main"]["humidity"]
+        humidity2 = weather_data_2["main"]["humidity"]
+        wind_speed1 = weather_data_1["wind"]["speed"]
+        wind_speed2 = weather_data_2["wind"]["speed"]
+        description1 = weather_data_1["weather"][0]["description"]
+        description2 = weather_data_2["weather"][0]["description"]
+
+        prompt = (
+            f"Write an essay comparing the weather conditions between the following two places and determine which one has better weather. Put the regions of the countries please. Base your answers on the weather API. Do not say place 1 or place 2 only put the regions of the countries. thank you:\n\n"
+            f"Place 1 (Latitude {lat1}, Longitude {lon1}):\n"
+            f"Temperature: {temp1:.2f}°C, Humidity: {humidity1}%, Wind Speed: {wind_speed1} m/s, Weather: {description1}\n\n"
+            f"Place 2 (Latitude {lat2}, Longitude {lon2}):\n"
+            f"Temperature: {temp2:.2f}°C, Humidity: {humidity2}%, Wind Speed: {wind_speed2} m/s, Weather: {description2}\n\n"
+            f"Which location has better weather overall, considering factors like temperature, humidity, and wind conditions?"
+        )
+
+        model = genai.GenerativeModel(model="gemini-2.5-flash")    
+        response = model.generate_content(prompt) 
+
+        return response.text
+    
+    except Exception as e:
+        return f"Error with Google Gemini API: {str(e)}"
+
+if lat1 is not None and lon1 is not None and lat2 is not None and lon2 is not None:
+    weather_data_1 = fetch_weather_data(lat1, lon1)
+    weather_data_2 = fetch_weather_data(lat2, lon2)
+
+    if weather_data_1 and weather_data_2:
+        st.markdown(f"### Weather Data for Place 1: {lat1}, {lon1}")
+        st.write(f"Weather: {weather_data_1['weather'][0]['description']}")
+        st.write(f"Temperature: {weather_data_1['main']['temp'] - 273.15:.2f} °C")
+        st.write(f"Humidity: {weather_data_1['main']['humidity']}%")
+        st.write(f"Wind Speed: {weather_data_1['wind']['speed']} m/s")
+
+        st.markdown(f"### Weather Data for Place 2: {lat2}, {lon2}")
+        st.write(f"Weather: {weather_data_2['weather'][0]['description']}")
+        st.write(f"Temperature: {weather_data_2['main']['temp'] - 273.15:.2f} °C")
+        st.write(f"Humidity: {weather_data_2['main']['humidity']}%")
+        st.write(f"Wind Speed: {weather_data_2['wind']['speed']} m/s")
+
+        gemini_response = get_gemini_response(weather_data_1, weather_data_2)
+        st.markdown("### Weather comparison between locations.")
+        st.write(gemini_response)
+        st.image("Images/sunny.jpg")
+    
+    else:
+        st.error("We can't get data from the values. Please try again.")
+else:
+    st.error("Enter a valid longitude and latitude. Values go from -90 to 90 for both.")
